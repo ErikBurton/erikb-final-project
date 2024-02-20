@@ -7,24 +7,27 @@ function getWeather() {
         return;
     }
 
+    // API URLs for current weather, hourly forecast, and sunrise/sunset
     const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
     const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=imperial`;
     const astroUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial&lang=en`;
 
+    // Fetch current weather data
     fetch(currentWeatherUrl)
         .then(response => response.json())
         .then(data => {
-            displayWeather(data);
+            displayWeather(data); // Display current weather data
         })
         .catch(error => {
             console.error('Error fetching current weather data:', error);
             alert('Error fetching current weather data. Please try again.');
         });
 
+     // Fetch hourly forecast data
     fetch(forecastUrl)
         .then(response => response.json())
         .then(data => {
-            displayHourlyForecast(data.list);
+            displayHourlyForecast(data.list); // Display hourly forecast data
         })
         .catch(error => {
             console.error('Error fetching hourly forecast data:', error);
@@ -42,11 +45,12 @@ function getWeather() {
         });
 }
 
+// Function to display current weather data
 function displayWeather(data) {
-    const tempDivInfo = document.getElementById('temp-div');
-    const weatherInfoDiv = document.getElementById('weather-info');
-    const weatherIcon = document.getElementById('weather-icon');
-    const hourlyForecastDiv = document.getElementById('hourly-forecast');
+    const tempDivInfo = document.getElementById('temp-div'); // Temperature display div
+    const weatherInfoDiv = document.getElementById('weather-info'); // Weather info display div
+    const weatherIcon = document.getElementById('weather-icon'); // Weather icon image
+    const hourlyForecastDiv = document.getElementById('hourly-forecast'); // Hourly forecast display div
 
     // Clear previous content
     weatherInfoDiv.innerHTML = '';
@@ -76,7 +80,7 @@ function displayWeather(data) {
         weatherIcon.src = iconUrl;
         weatherIcon.alt = description;
 
-        showImage();
+        showImage(); // Show weather icon image
 
         // Add shake animation
         weatherInfoDiv.classList.add('shake'); // Class to start the animation
